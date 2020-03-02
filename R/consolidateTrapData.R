@@ -1,13 +1,14 @@
 #' @title Consolidates Trap Data by Month
 #'
-#' @description
+#' @description Consolidates the trap catch data for each line for a particular month, or the entire year
+#' (i.e., over the entire trap data.frame as imported by \code{\link{getTrapData}}).
 #'
 #' @aliases consolidateTrapData
 #'
 #' @usage consolidateTrapData(trapData=tl, mthInt=obsMth, currMth=NULL, mammals=allMammals,
 #'                            status=stdStat, nTraps=nTrap)
 #'
-#' @param trapData A data.frame containing the trap data (typically as captured by \code{\link{getTrapData}}.
+#' @param trapData A data.frame containing the trap data (typically as captured by \code{\link{getTrapData}}).
 #'
 #' @param mthInt A factor vector giving the monthly interval names.  This should have the same number of
 #' elements as there are rows in \code{trapData}.

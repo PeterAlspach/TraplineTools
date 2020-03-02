@@ -8,7 +8,7 @@ consolidateTrapData(trapData=tl, mthInt=obsMth, currMth=NULL, mammals=allMammals
                            status=stdStat, nTraps=nTrap)
 }
 \arguments{
-\item{trapData}{A data.frame containing the trap data (typically as captured by \code{\link{getTrapData}}.}
+\item{trapData}{A data.frame containing the trap data (typically as captured by \code{\link{getTrapData}}).}
 
 \item{mthInt}{A factor vector giving the monthly interval names.  This should have the same number of
 elements as there are rows in \code{trapData}.}
@@ -30,7 +30,8 @@ catch A data.frame with the consolidated data for each line both as absolute val
 to the number of traps per line.
 }
 \description{
-
+Consolidates the trap catch data for each line for a particular month, or the entire year
+(i.e., over the entire trap data.frame as imported by \code{\link{getTrapData}}).
 }
 \details{
 Blah.
