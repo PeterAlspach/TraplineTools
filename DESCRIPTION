@@ -1,0 +1,11 @@
+Package: TraplineTools
+Type: Package
+Title: Tools for reporting on Springs Junction trapline data
+Version: 0.1.0
+Author: Peter Alspach
+Maintainer: Peter Alspach <paalspach@gmail.com>
+Description: This package contains a series of functions to facilitate analysing and reporting on the trapline data from Springs Junction.
+License: 
+Encoding: UTF-8
+LazyData: TRUE
+RoxygenNote: 7.0.2
