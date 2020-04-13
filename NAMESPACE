@@ -3,3 +3,4 @@
 export(consolidateTrapData)
 export(getTrapData)
 export(mSppFn)
+export(setCutDates)
