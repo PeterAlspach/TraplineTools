@@ -25,6 +25,9 @@
 #' @param nTraps A number vector containing the number of traps per line (irrespective of whether they are
 #' missing or non-functional).
 #'
+#' @param lineNames A character vector containing the names of the lines.  If \code{NULL}, the default, then
+#' the \code{unique(trapData$Line)} is used.
+#'
 #' @return catch A data.frame with the consolidated data for each line both as absolute values and relative
 #' to the number of traps per line.
 #'
@@ -38,14 +41,15 @@
 #' @export
 
 consolidateTrapData <- function(trapData=tl, mthInt=obsMth, currMth=NULL, mammals=allMammals,
-                                status=stdStat, nTraps=nTrap)
+                                status=stdStat, nTraps=nTrap, lineNames=NULL)
 {
+  if (is.null(lineNames)) lineNames <- unique(trapData$Line)
+
   # Subset trapData to the current month if currMth is non-NULL
   if (!is.null(currMth))
   {
-    if (currMth==1) currMth <- 13
-    trapData <- trapData[mthInt==levels(mthInt)[currMth-1],]
-    mthInt <- mthInt[mthInt==levels(mthInt)[currMth-1]]
+    trapData <- trapData[mthInt==levels(mthInt)[currMth],]
+    mthInt <- mthInt[mthInt==levels(mthInt)[currMth]]
 
     # Replace nTraps with the number of functioning traps for the month
     cM1 <- trapData[!(trapData$Status %in% c('Missing', 'Maintenance required not functioning')),]
@@ -76,6 +80,14 @@ consolidateTrapData <- function(trapData=tl, mthInt=obsMth, currMth=NULL, mammal
 
   rownames(catch) <- catch$Row.names
   catch <- catch[,-1]
+  # Replace missing values with 0 (necessary as missing values are put if the pest wasn't trapped in the period)
+  catch[is.na(catch)] <- 0
+  names(catch) <- c('nTrap', stdStat, 'Other', 'Total')
+  # Ensure all lines are represented (necessary in some months lines are missed)
+  catch <- catch[lineNames,]
+  rownames(catch) <- lineNames
+
+  # Add total line
   catch <- rbind(catch, apply(catch, 2, sum, na.rm=TRUE))
   rownames(catch)[nrow(catch)] <- 'TOTAL'
 

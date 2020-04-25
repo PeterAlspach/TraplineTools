@@ -24,6 +24,9 @@ lumped into 'Other'.}
 
 \item{nTraps}{A number vector containing the number of traps per line (irrespective of whether they are
 missing or non-functional).}
+
+\item{lineNames}{A character vector containing the names of the lines.  If \code{NULL}, the default, then
+the \code{unique(trapData$Line)} is used.}
 }
 \value{
 catch A data.frame with the consolidated data for each line both as absolute values and relative
