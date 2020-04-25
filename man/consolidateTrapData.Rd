@@ -36,9 +36,6 @@ to the number of traps per line.
 Consolidates the trap catch data for each line for a particular month, or the entire year
 (i.e., over the entire trap data.frame as imported by \code{\link{getTrapData}}).
 }
-\details{
-Blah.
-}
 \examples{
 consolidateTrapData()
 

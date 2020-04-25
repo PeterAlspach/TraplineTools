@@ -36,8 +36,6 @@
 #' @examples
 #' consolidateTrapData()
 #'
-#' @details Blah.
-#'
 #' @export
 
 consolidateTrapData <- function(trapData=tl, mthInt=obsMth, currMth=NULL, mammals=allMammals,
