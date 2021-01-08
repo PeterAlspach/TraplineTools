@@ -50,6 +50,7 @@ getTrapData <- function(file='TrapCatches.csv', recentMth=NULL, append=FALSE, om
   {
     tlXtra <- read.csv(recentMth, header=TRUE, sep=',', stringsAsFactors=FALSE, ...)
     tl <- rbind(tl, tlXtra)
+    tl <- tl[!duplicated(apply(tl, 1, paste, collapse=':')),] # remove duplicated row
   }
 
   tl <- tl[!(tl$Line %in% omitLines),] # omit irrelevant lines
