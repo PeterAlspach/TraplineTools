@@ -58,7 +58,7 @@ consolidateTrapData <- function(trapData=tl, mthInt=obsMth, currMth=NULL, mammal
   # Tabluate the catches (Trap.1 and Trap.2) by Line
   trap1 <- table(trapData$Line, trapData$Trap.1)
   trap2 <- table(trapData$Line, trapData$Trap.2)
-  trap2 <- trap2[, colnames(trap2)!='N/A']
+  trap2 <- trap2[, colnames(trap2)!='N/A', drop=FALSE]
   tt <- unique(c(colnames(trap1), colnames(trap2)))
 
   # Combine the two traps and subset lump some animals together
