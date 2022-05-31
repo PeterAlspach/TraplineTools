@@ -1,7 +1,7 @@
 #' @title Function to Facilitate Reporting Miscellaneous Species Numbers
 #'
 #' @description Given a table with the numbers of various species, this function outputs a character variable
-#' the express the number of a particular species in standard language.
+#' to express the number of a particular species in standard language.
 #'
 #' @aliases mSppFn
 #'
