@@ -42,7 +42,7 @@
 #' @export
 
 getTrapNZData <- function(file='manage_trap_records.csv', recentMth=NULL, append=FALSE, trapType='DOC 200',
-                        dstOffset=FALSE, ...)
+                          dstOffset=FALSE, ...)
 {
   tl <- read.csv(file, header=TRUE, sep=',', stringsAsFactors=FALSE, ...)
 
@@ -70,7 +70,7 @@ getTrapNZData <- function(file='manage_trap_records.csv', recentMth=NULL, append
   if (dstOffset) tl$date <- sub('23:00:00', '24:00:00', tl$date)
 
   # Remove time from date stamp
-#  tl$date <- as.character(as.POSIXct(tl$date, format="%Y-%m-%dT%H:%M"))
+  tl$date <- substring(tl$date, 1, 10)
   yr <- as.integer(substring(tl[substring(tl$date, 6)>='01-16', 'date'][1], 1, 4))
   tl$jDay <- julian.Date(as.Date(tl$date), origin=as.Date(paste0(yr-1, '-12-31')))
   tlOld <- tl[tl$jDay <= 15,]
