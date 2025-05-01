@@ -1,12 +1,12 @@
-#' @title Consolidates Trap Data by Month
+#' @title Consolidate Trap Data by Month
 #'
 #' @description Consolidates the trap catch data for each line for a particular month, or the entire year
 #' (i.e., over the entire trap data.frame as imported by \code{\link{getTrapNZData}}).
 #'
 #' @aliases consolidateTrapNZData
 #'
-#' @usage consolidateTrapNzData(trapData=tl, mthInt=obsMth, currMth=NULL, mammals=allMammals,
-#'                            stat=stdStat, nBoxes=nBox)
+#' @usage consolidateTrapNZData(trapData=tl, mthInt=obsMth, currMth=NULL, mammals=allMammals,
+#'                            stat=stdStat, nBoxes=nBox, lineNames=NULL)
 #'
 #' @param trapData A data.frame containing the trap data (typically as captured by \code{\link{getTrapNZData}}).
 #'
@@ -22,7 +22,7 @@
 #' @param stat A character vector containing the columns to retain in the summary.  All the rest will be
 #' lumped into 'Other'.
 #'
-#' @param nBoxes A number vector containing the number of trap boxess per line (irrespective of whether they are
+#' @param nBoxes A number vector containing the number of trap boxes per line (irrespective of whether they are
 #' missing or non-functional).
 #'
 #' @param lineNames A character vector containing the names of the lines.  If \code{NULL}, the default, then
@@ -65,7 +65,7 @@ consolidateTrapNZData <- function(trapData=tl, mthInt=obsMth, currMth=NULL, mamm
                  Other=apply(catch[, -(1:length(stat))], 1, sum, na.rm=TRUE))
   catch <- cbind(catch, Total=apply(catch[, -1], 1, sum, na.rm=TRUE))
 
-  # Add in the number of traps per line (irrespective of whether some are missing)
+  # Add in the number of traps per line (irrespective of whether some are missing if entire year)
   catch <- merge(nBoxes, catch, by='row.names', all=TRUE)
   colnames(catch)[2:3] <- c('nTrap','Sprung')
 

@@ -6,8 +6,8 @@
 #'
 #' @aliases getTrapNZData
 #'
-#' @usage getTrapNZData('manage_trap_records.csv', recentMth='TrapCatchesRecent', append=FALSE,
-#'  trapType='DOC 200', dstOffset=FALSE, ...)
+#' @usage getTrapNZData(file='manage_trap_records.csv', recentMth=NULL, append=FALSE,
+#'  trapType=NULL, dstOffset=FALSE, startDay=15, ...)
 #'
 #' @param file The primary file with the trap catch data (default \code{'manage_trap_records.csv'}).
 #' This is a csv file as downloaded from the trap.nz database, or created by this function if
@@ -23,16 +23,21 @@
 #' if \code{TRUE} then the csv holding the primary data is updated with the most recent month's data.
 #'
 #' @param trapType A character vector giving the names of the trap types to include when processing the data.
-#' Defaults to \code{'DOC 200'}.
+#' If \code{NULL}, the default, no sub-setting by trap type is conducted.
 #'
 #' @param dstOffset A logical.  If \code{FALSE} (the default) no special action is taken; if \code{TRUE} then all dates
 #' with 23:00:00 as the time are changed to 24:00:00, thereby increment the date by one day.  This was necessary with the
-#' old DOC database but probably not trap.nz
+#' old DOC database but probably not trap.nz.
+#'
+#' @param startDay An integer giving the day of the month from which the recording period begins (defaults to
+#' \code{15}).  This is relevant for when trap checking is strictly monthly (such as at Maruia), but less so
+#' when the checking is more irregular (such as Lucretia/Duchess).
 #'
 #' @param ... Other arguments to pass to \code{read.csv}.
 #'
-#' @return A list is return: the first element (\code{tl}) is a dataframe with the processed data;
-#' the second (\code{yr}) is an atomic numeric giving the year.
+#' @return A list is return: the first element (\code{tl}) is a dataframe with the processed data for the most recent year;
+#' the second (\code{tlOld}) is a dataframe with the processed data for the previous years;
+#'  and the third (\code{yr}) is an atomic numeric giving the most recent year.
 #'
 #' @author Peter Alspach (paalspach@gmail.com)
 #'
@@ -41,8 +46,8 @@
 #'
 #' @export
 
-getTrapNZData <- function(file='manage_trap_records.csv', recentMth=NULL, append=FALSE, trapType='DOC 200',
-                          dstOffset=FALSE, ...)
+getTrapNZData <- function(file='manage_trap_records.csv', recentMth=NULL, append=FALSE, trapType=NULL,
+                          dstOffset=FALSE, startDay=15, ...)
 {
   tl <- read.csv(file, header=TRUE, sep=',', stringsAsFactors=FALSE, ...)
 
@@ -53,7 +58,7 @@ getTrapNZData <- function(file='manage_trap_records.csv', recentMth=NULL, append
     tl <- tl[!duplicated(apply(tl, 1, paste, collapse=':')),] # remove duplicated rows, if they exist
   }
 
-  tl <- tl[tl$trap.type %in% trapType,] # keep only data for the relevant traps
+  if(!is.null(trapType)) tl <- tl[tl$trap.type %in% trapType,] # keep only data for the relevant traps
 
   # Append recent month's data to current year's data if requested
   if (append) write.csv(tl, 'manage_trap_records.csv', row.names=FALSE)
@@ -73,7 +78,7 @@ getTrapNZData <- function(file='manage_trap_records.csv', recentMth=NULL, append
   tl$date <- substring(tl$date, 1, 10)
   yr <- as.integer(substring(tl[substring(tl$date, 6)>='01-16', 'date'][1], 1, 4))
   tl$jDay <- julian.Date(as.Date(tl$date), origin=as.Date(paste0(yr-1, '-12-31')))
-  tlOld <- tl[tl$jDay <= 15,]
-  tl <- tl[tl$jDay > 15,]
-  return(list(tl=tl, yr=yr))
+  tlOld <- tl[tl$jDay <= startDay,]
+  tl <- tl[tl$jDay > startDay,]
+  return(list(tl=tl, tlOld=tlOld, yr=yr))
 }

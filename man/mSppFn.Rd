@@ -25,7 +25,7 @@ particular species (as specified by \code{spp}) found in the \code{sppTab} table
 }
 \description{
 Given a table with the numbers of various species, this function outputs a character variable
-the express the number of a particular species in standard language.
+to express the number of a particular species in standard language.
 }
 \examples{
 mSppFn(miscSppY, 'Cat', 'cats')

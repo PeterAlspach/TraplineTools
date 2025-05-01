@@ -6,7 +6,7 @@
 #' @aliases consolidateTrapData
 #'
 #' @usage consolidateTrapData(trapData=tl, mthInt=obsMth, currMth=NULL, mammals=allMammals,
-#'                            status=stdStat, nTraps=nTrap)
+#'                            status=stdStat, nTraps=nTrap, lineNames=NULL)
 #'
 #' @param trapData A data.frame containing the trap data (typically as captured by \code{\link{getTrapData}}).
 #'

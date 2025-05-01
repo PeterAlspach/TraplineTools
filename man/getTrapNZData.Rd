@@ -4,8 +4,8 @@
 \alias{getTrapNZData}
 \title{Reads Trapline Data from csv generated from trap.nz}
 \usage{
-getTrapNZData('manage_trap_records.csv', recentMth='TrapCatchesRecent', append=FALSE,
- trapType='DOC 200', dstOffset=FALSE, ...)
+getTrapNZData(file='manage_trap_records.csv', recentMth=NULL, append=FALSE,
+ trapType='DOC 200', dstOffset=FALSE, startDay=15, ...)
 }
 \arguments{
 \item{file}{The primary file with the trap catch data (default \code{'manage_trap_records.csv'}).
@@ -26,13 +26,18 @@ Defaults to \code{'DOC 200'}.}
 
 \item{dstOffset}{A logical.  If \code{FALSE} (the default) no special action is taken; if \code{TRUE} then all dates
 with 23:00:00 as the time are changed to 24:00:00, thereby increment the date by one day.  This was necessary with the
-old DOC database but probably not trap.nz}
+old DOC database but probably not trap.nz.}
+
+\item{startDay}{An integer giving the day of the month from which the recording period begins (defaults to
+\code{15}).  This is relevant for when trap checking is strictly monthly (such as at Maruia), but less so
+when the checking is more irregular (such as Lucretia/Duchess).}
 
 \item{...}{Other arguments to pass to \code{read.csv}.}
 }
 \value{
-A list is return: the first element (\code{tl}) is a dataframe with the processed data;
-the second (\code{yr}) is an atomic numeric giving the year.
+A list is return: the first element (\code{tl}) is a dataframe with the processed data for the most recent year;
+the second (\code{tlOld}) is a dataframe with the processed data for the previous years;
+ and the third (\code{yr}) is an atomic numeric giving the most recent year.
 }
 \description{
 By default \code{getTrapNZData} expects the entire year-to-date data, but it will accept

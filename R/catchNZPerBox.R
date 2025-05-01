@@ -5,7 +5,7 @@
 #'
 #' @aliases catchNZPerBox
 #'
-#' @usage catchPerNZBox(trapData=tl, mthInt=obsMth, mammals=allMammals)
+#' @usage catchNZPerBox(trapData=tl, mthInt=obsMth, mammals=allMammals)
 #'
 #' @param trapData A data.frame containing the trap data (typically as captured by \code{\link{getTrapNZData}}, but
 #' only the first list element).

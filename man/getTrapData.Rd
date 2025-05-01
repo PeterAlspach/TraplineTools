@@ -4,7 +4,7 @@
 \alias{getTrapData}
 \title{Reads Trapline Data from csv}
 \usage{
-getTrapData('TrapCatches.csv', recentMth='TrapCatchesRecent', append=FALSE,
+getTrapData(file='TrapCatches.csv', recentMth=NULL, append=FALSE,
  omitLines='Possum A12', dstOffset=FALSE, ...)
 }
 \arguments{

@@ -7,7 +7,7 @@
 #'
 #' @aliases getTrapData
 #'
-#' @usage getTrapData('TrapCatches.csv', recentMth='TrapCatchesRecent', append=FALSE,
+#' @usage getTrapData(file='TrapCatches.csv', recentMth=NULL, append=FALSE,
 #'  omitLines='Possum A12', dstOffset=FALSE, ...)
 #'
 #' @param file The primary file with the trap catch data (default \code{'TrapCatches.csv'}).
@@ -46,7 +46,7 @@ getTrapData <- function(file='TrapCatches.csv', recentMth=NULL, append=FALSE, om
 {
   tl <- read.csv(file, header=TRUE, sep=',', stringsAsFactors=FALSE, ...)
 
-  if (!is.null(recentMth)) # get recent month's data is not null
+  if (!is.null(recentMth)) # get recent month's data if not null
   {
     tlXtra <- read.csv(recentMth, header=TRUE, sep=',', stringsAsFactors=FALSE, ...)
     tl <- rbind(tl, tlXtra)
